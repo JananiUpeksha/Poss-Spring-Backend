@@ -1,27 +1,19 @@
-package lk.ijse.springbackend.entity.impl;
+package lk.ijse.springbackend.dto.impl;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ToString
-@Entity
-@Table(name = "orders")
-public class OrderEntity {
-    @Id
+public class OrderDTO {
     private String orderId;
-    @ManyToOne
-    @JoinColumn(name = "customerId")
-    private CustomerEntity customer;
+    private String customerId;
     private Double total;
     private LocalDateTime date;
-
 }
