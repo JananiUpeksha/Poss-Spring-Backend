@@ -6,7 +6,6 @@ import lk.ijse.springbackend.dto.impl.OrderDTO;
 import lk.ijse.springbackend.entity.impl.CustomerEntity;
 import lk.ijse.springbackend.entity.impl.ItemEntity;
 import lk.ijse.springbackend.entity.impl.OrderEntity;
-import lk.ijse.springbackend.entity.impl.CustomerEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,25 +23,25 @@ public class Mapping {
         return modelMapper.map(customerDTO, CustomerEntity.class);
     }
 
-    public CustomerDTO tocustomerDTO(CustomerEntity customerEntity) {
+    public CustomerDTO toCustomerDTO(CustomerEntity customerEntity) {
         return modelMapper.map(customerEntity, CustomerDTO.class);
     }
 
-    public List<CustomerDTO> asUserDTOList(List<CustomerEntity> userEntityList) {
-        return modelMapper.map(userEntityList, new TypeToken<List<CustomerDTO>>() {}.getType());
+    public List<CustomerDTO> asCustomerDTOList(List<CustomerEntity> customerEntityList) {
+        return modelMapper.map(customerEntityList, new TypeToken<List<CustomerDTO>>() {}.getType());
     }
 
     // Mapping methods for Item
-    public ItemEntity toNoteEntity(ItemEntity itemDTO) {
+    public ItemEntity toItemEntity(ItemDTO itemDTO) {
         return modelMapper.map(itemDTO, ItemEntity.class);
     }
 
-    public ItemDTO toNoteDTO(ItemEntity itemEntity) {
+    public ItemDTO toItemDTO(ItemEntity itemEntity) {
         return modelMapper.map(itemEntity, ItemDTO.class);
     }
 
-    public List<ItemDTO> asNoteDTOList(List<ItemEntity> noteEntityList) {
-        return modelMapper.map(noteEntityList, new TypeToken<List<ItemDTO>>() {}.getType());
+    public List<ItemDTO> asItemDTOList(List<ItemEntity> itemEntityList) {
+        return modelMapper.map(itemEntityList, new TypeToken<List<ItemDTO>>() {}.getType());
     }
 
     // Mapping methods for Order
@@ -57,5 +56,4 @@ public class Mapping {
     public List<OrderDTO> asOrderDTOList(List<OrderEntity> orderEntityList) {
         return modelMapper.map(orderEntityList, new TypeToken<List<OrderDTO>>() {}.getType());
     }
-
 }

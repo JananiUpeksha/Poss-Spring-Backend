@@ -1,4 +1,7 @@
 package lk.ijse.springbackend.dao;
 
-public interface CustomerDAO {
+import lk.ijse.springbackend.entity.impl.CustomerEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CustomerDAO extends JpaRepository<CustomerEntity,String> {
 }
