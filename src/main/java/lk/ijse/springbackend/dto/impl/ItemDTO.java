@@ -1,5 +1,6 @@
 package lk.ijse.springbackend.dto.impl;
 
+import lk.ijse.springbackend.dto.ItemStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Data
 @ToString
-public class ItemDTO {
+public class ItemDTO implements ItemStatus {
     private String id;
     private String name;
     private Double price;

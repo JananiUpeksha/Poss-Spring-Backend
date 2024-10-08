@@ -8,7 +8,7 @@ public class AppUtill {
         return "Customer-"+ UUID.randomUUID();
     }
     public static String generateItemId(){
-        return "Iem-"+ UUID.randomUUID();
+        return "Item-"+ UUID.randomUUID();
     }
     public static String generateOrderId(){
         return "Order-"+ UUID.randomUUID();
