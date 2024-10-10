@@ -11,6 +11,8 @@ import lk.ijse.springbackend.exception.ItemNotFoundException;
 import lk.ijse.springbackend.service.ItemService;
 import lk.ijse.springbackend.utill.AppUtill;
 import lk.ijse.springbackend.utill.Mapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,48 +22,65 @@ import java.util.Optional;
 @Service
 @Transactional
 public class ItemServiceImpl implements ItemService {
+    private static final Logger logger = LoggerFactory.getLogger(ItemServiceImpl.class);
+
     @Autowired
     private ItemDAO itemDAO;
     @Autowired
     private Mapping mapping;
+
     @Override
     public void saveItem(ItemDTO itemDTO) {
+        logger.info("Saving item: {}", itemDTO);
         itemDTO.setId(AppUtill.generateItemId());
         ItemEntity savedItem = itemDAO.save(mapping.toItemEntity(itemDTO));
         if (savedItem == null) {
+            logger.error("Failed to save item: {}", itemDTO);
             throw new DataPersistException("Item not saved");
         }
+        logger.info("Item saved successfully: {}", savedItem);
     }
 
     @Override
     public ItemStatus getItem(String itemId) {
+        logger.info("Fetching item with ID: {}", itemId);
         if (itemDAO.existsById(itemId)) {
             var selectedItem = itemDAO.getReferenceById(itemId);
+            logger.info("Item found: {}", selectedItem);
             return mapping.toItemDTO(selectedItem);
         } else {
+            logger.warn("Item not found for ID: {}", itemId);
             return new SelectedItemErrorStatus(2, "Selected item not found");
         }
     }
 
     @Override
     public List<ItemDTO> getAllItems() {
-        return mapping.asItemDTOList(itemDAO.findAll());
+        logger.info("Fetching all items");
+        List<ItemDTO> items = mapping.asItemDTOList(itemDAO.findAll());
+        logger.info("Total items retrieved: {}", items.size());
+        return items;
     }
 
     @Override
     public void deleteItem(String itemId) {
+        logger.info("Attempting to delete item with ID: {}", itemId);
         Optional<ItemEntity> foundItem = itemDAO.findById(itemId);
         if (!foundItem.isPresent()) {
+            logger.error("Item not found for ID: {}", itemId);
             throw new ItemNotFoundException("Item not found by id " + itemId);
         } else {
             itemDAO.deleteById(itemId);
+            logger.info("Item deleted successfully: {}", itemId);
         }
     }
 
     @Override
     public void updateItem(String itemId, ItemDTO updateItemDTO) {
+        logger.info("Updating item with ID: {}", itemId);
         Optional<ItemEntity> foundItem = itemDAO.findById(itemId);
         if (!foundItem.isPresent()) {
+            logger.error("Item not found for ID: {}", itemId);
             throw new ItemNotFoundException("Item not found");
         } else {
             ItemEntity itemEntity = foundItem.get();
@@ -69,6 +88,7 @@ public class ItemServiceImpl implements ItemService {
             itemEntity.setPrice(updateItemDTO.getPrice());
             itemEntity.setQty(updateItemDTO.getQty());
             itemDAO.save(itemEntity);
+            logger.info("Item updated successfully: {}", itemEntity);
         }
     }
 }
