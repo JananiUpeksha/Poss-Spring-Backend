@@ -6,7 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -18,10 +19,15 @@ import java.util.List;
 public class OrderEntity {
     @Id
     private String orderId;
+
     @ManyToOne
     @JoinColumn(name = "customerId")
     private CustomerEntity customer;
-    private Double total;
-    private LocalDateTime date;
 
+    private Double total;
+    private LocalDate date;
+
+    // Update this line
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItemEntity> orderItems = new ArrayList<>();
 }

@@ -91,4 +91,24 @@ public class ItemServiceImpl implements ItemService {
             logger.info("Item updated successfully: {}", itemEntity);
         }
     }
+
+
+    @Override
+    public void updateItemQuantity(String id, Integer qty) {
+        logger.info("Updating quantity for item ID: {} by {}", id, qty);
+        ItemEntity itemEntity = itemDAO.findById(id)
+                .orElseThrow(() -> {
+                    logger.error("Item not found for ID: {}", id);
+                    return new ItemNotFoundException("Item not found by id " + id);
+                });
+
+        if (itemEntity.getQty() + qty < 0) {
+            logger.error("Insufficient quantity for item ID: {}. Current: {}, Requested: {}", id, itemEntity.getQty(), qty);
+            throw new IllegalArgumentException("Insufficient quantity for item ID: " + id);
+        }
+
+        itemEntity.setQty(itemEntity.getQty() + qty);
+        itemDAO.save(itemEntity);
+        logger.info("Item quantity updated successfully: {}", itemEntity);
+    }
 }

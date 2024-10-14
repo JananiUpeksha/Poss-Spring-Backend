@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -15,4 +17,5 @@ public class CustomerDTO implements CustomerStatus {
     private String name;
     private String address;
     private String contact;
+    private List<OrderDTO> orders;
 }

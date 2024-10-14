@@ -15,4 +15,6 @@ public interface ItemService {
     void deleteItem(String itemId);
 
     void updateItem(String itemId, ItemDTO updateItemDTO);
+
+    void updateItemQuantity(String id, Integer qty);
 }

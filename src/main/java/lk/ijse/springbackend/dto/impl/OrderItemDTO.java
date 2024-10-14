@@ -10,7 +10,7 @@ import lombok.ToString;
 @Data
 @ToString
 public class OrderItemDTO {
-    private String orderId;
+
     private String itemId;
     private Integer quantity;
 }

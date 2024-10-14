@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -15,4 +17,5 @@ public class ItemDTO implements ItemStatus {
     private String name;
     private Double price;
     private Integer qty;
+    private List<OrderItemDTO> orderItems;
 }

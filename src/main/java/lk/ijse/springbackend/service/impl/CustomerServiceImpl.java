@@ -43,6 +43,7 @@ public class CustomerServiceImpl implements CustomerService {
         logger.info("Customer saved successfully: {}", savedCustomer.getId());
     }
 
+
     @Override
     public CustomerStatus getCustomer(String customerId) {
         logger.info("Fetching customer with ID: {}", customerId);
